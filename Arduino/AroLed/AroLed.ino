@@ -32,7 +32,6 @@ ESP8266WebServer server(80);
 
 #include "data.h"
 
-
 IPAddress ip_local(192, 168, 50, 123);
 IPAddress gateway(192, 168, 50, 1);
 IPAddress subnet(255, 255, 255, 0);
@@ -52,6 +51,7 @@ int Azul = 0;
 
 long HueActual = 0;
 String Valor = "";
+
 Ticker cambiarLed;
 int LedEstado = 2;
 boolean EstadoLed = false;
@@ -191,7 +191,6 @@ void setup() {
   server.on("/telegram", funcionTelegram);
 
   server.onNotFound(mensajeError);
-
 
   server.begin();
   Serial.println("Servidor HTTP iniciado");
