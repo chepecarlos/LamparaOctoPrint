@@ -66,11 +66,14 @@ Ticker cambiarLed;
 int LedEstado = 2;
 boolean EstadoLed = false;
 
+int Boton = 13;
+
 void setup() {
   Serial.begin(115200);
   Serial.println("\nIniciando Server Web");
 
   pinMode(LedEstado, OUTPUT);
+  pinMode(Boton, INPUT);
 
   conectarWifi();
   configurarServer();
@@ -78,6 +81,10 @@ void setup() {
 }
 
 void loop() {
+  if (digitalRead(Boton)) {
+    EstadoImprimiendo = !EstadoImprimiendo;
+  }
+
   actualizarWifi();
   server.handleClient();
   actualizarAro();
