@@ -83,6 +83,8 @@ void setup() {
 void loop() {
   if (digitalRead(Boton)) {
     EstadoImprimiendo = !EstadoImprimiendo;
+    actualizarAro();
+    delay(1000);
   }
 
   actualizarWifi();
