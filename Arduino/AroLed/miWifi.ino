@@ -1,14 +1,16 @@
 
-
 IPAddress ip_local(192, 168, 50, 123);
 IPAddress gateway(192, 168, 50, 1);
 IPAddress subnet(255, 255, 255, 0);
 
-
 void conectarWifi() {
-  WiFi.mode(WIFI_STA);
+  Serial.println();
   Serial.print("Conectando a Wifi ..");
+  if (!WiFi.config(ip_local, gateway, subnet)) {
+    Serial.println("Error en configuracion");
+  }
   WiFi.begin(ssid_1, password_1);
+  WiFi.mode(WIFI_STA);
 
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
@@ -18,9 +20,12 @@ void conectarWifi() {
   }
   Serial.println(".. Conectado");
   Serial.print("SSID: ");
-  Serial.print(WiFi.SSID());
-  Serial.print(" ID: ");
+  Serial.println(WiFi.SSID());
+  Serial.print(" IP: ");
   Serial.println(WiFi.localIP());
+  Serial.print("MDNS: ");
+  Serial.print(NombreESP);
+  Serial.println(".local");
 
   if (!WiFi.config(ip_local, gateway, subnet)) {
     Serial.println("Error en configuracion Red");

@@ -25,6 +25,7 @@ uint32_t leerArchivo(const char *ruta) {
   File archivo = LittleFS.open(ruta, "r");
   if (!archivo) {
     Serial.println("Archivo no se puede abir");
+    Serial.println(ruta);
     return -1;
   }
 

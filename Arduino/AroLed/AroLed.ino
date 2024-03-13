@@ -46,9 +46,9 @@ ESP8266WebServer server(80);
 int estado = noWifi;
 int estadoAnterior = -1;
 
-#define Pin 4
-#define CantidadLed 24
-Adafruit_NeoPixel tira = Adafruit_NeoPixel(CantidadLed, Pin, NEO_GRB + NEO_KHZ800);
+#define PinNeopixel 13
+#define CantidadNeopixel 24
+Adafruit_NeoPixel tira = Adafruit_NeoPixel(CantidadNeopixel, PinNeopixel, NEO_GRB + NEO_KHZ800);
 
 const uint32_t TiempoEsperaWifi = 5000;
 boolean EstadoImprimiendo = false;
@@ -66,31 +66,62 @@ Ticker cambiarLed;
 int LedEstado = 2;
 boolean EstadoLed = false;
 
-int Boton = 13;
+int BotonRojoTemperatura = 4;
+int BotonAmarilloCambiarColor = 14;
+int BotonAzulReImprimir = 5;
 
 void setup() {
   Serial.begin(115200);
   Serial.println("\nIniciando Server Web");
-
   pinMode(LedEstado, OUTPUT);
-  pinMode(Boton, INPUT);
-
+  iniciarBotones();
   conectarWifi();
   configurarServer();
   configurarAro();
 }
 
 void loop() {
-  if (digitalRead(Boton)) {
-    EstadoImprimiendo = !EstadoImprimiendo;
-    actualizarAro();
-    delay(1000);
-  }
+  //  if (digitalRead(Boton)) {
+  //    EstadoImprimiendo = !EstadoImprimiendo;
+  //    actualizarAro();
+  //    delay(1000);
+  //  }
 
+  actualizarBotones();
   actualizarWifi();
   server.handleClient();
   actualizarAro();
   actualizarEstado();
   LeerTelnet();
+  LeerSerial();
   delay(10);
+}
+
+void LeerSerial() {
+  if (Serial.available()) {
+    char Letra = Serial.read();
+    switch (Letra) {
+      case 'e':
+      case 'E':
+        Serial.println("Estado: ");
+        Serial << "Estado: " << "\n";
+        //        TelnetStream  << " Imprimiendo: " << (EstadoImprimiendo ? "Activo" : "Apagado");
+        //        TelnetStream  << " EstadoTelegram: " << (EstadoTelegram ? "Activo" : "Apagado");
+        Serial  << " Nivel: " << Nivel;
+        Serial  << " Rojo: " << Rojo;
+        Serial  << " Verde: " << Verde;
+        Serial  << " Azul: " << Azul;
+        Serial  << "\n";
+        break;
+      case 'f':
+      case 'F':
+        if (!LittleFS.format()) {
+          Serial.println("Error formatiando");
+          return;
+        } else {
+          Serial.println("Se boro todo");
+        }
+        break;
+    }
+  }
 }
