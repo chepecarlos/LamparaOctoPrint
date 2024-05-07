@@ -26,6 +26,11 @@ void actualizarEstado() {
         Serial.print("Conectado");
         TelnetStream.print("Conectado");
         break;
+      case consultando:
+        cambiarLed.attach(0.5, funcionLed);
+        Serial.print("Consultando");
+        TelnetStream.print("Consultando");
+        break;
       case errorEstado:
         // todo: estado de error
         break;

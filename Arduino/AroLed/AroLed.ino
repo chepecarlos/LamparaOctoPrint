@@ -12,6 +12,7 @@ template<class T> inline Print &operator <<(Print &obj, T arg) {
 #include <WiFi.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
+#include <HTTPClient.h>
 
 WebServer server(80);
 
@@ -20,11 +21,14 @@ WebServer server(80);
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
+#include <ESP8266HTTPClient.h>
 
 ESP8266WebServer server(80);
 
 #endif
 
+
+#include <WiFiClient.h>
 #include <TelnetStream.h>
 #include <Ticker.h>
 #include <Adafruit_NeoPixel.h>
@@ -41,6 +45,7 @@ ESP8266WebServer server(80);
 #define noWifi 0
 #define noServer 1
 #define conectado 2
+#define consultando 4
 #define errorEstado 3
 
 int estado = noWifi;
@@ -81,11 +86,6 @@ void setup() {
 }
 
 void loop() {
-  //  if (digitalRead(Boton)) {
-  //    EstadoImprimiendo = !EstadoImprimiendo;
-  //    actualizarAro();
-  //    delay(1000);
-  //  }
 
   actualizarBotones();
   actualizarWifi();

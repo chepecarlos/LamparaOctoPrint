@@ -56,7 +56,6 @@ void actualizarWifi() {
 #endif
   ArduinoOTA.handle();
   delay(10);
-
 }
 
 
@@ -67,14 +66,19 @@ void LeerTelnet() {
       case 'e':
       case 'E':
         TelnetStream.println("Estado: ");
-        TelnetStream << "Estado: " << "\n";
-        //        TelnetStream  << " Imprimiendo: " << (EstadoImprimiendo ? "Activo" : "Apagado");
-        //        TelnetStream  << " EstadoTelegram: " << (EstadoTelegram ? "Activo" : "Apagado");
-        TelnetStream  << " Nivel: " << Nivel;
-        TelnetStream  << " Rojo: " << Rojo;
-        TelnetStream  << " Verde: " << Verde;
-        TelnetStream  << " Azul: " << Azul;
-        TelnetStream  << "\n";
+        TelnetStream.print(" Imprimiendo: ");
+        TelnetStream.println((EstadoImprimiendo ? "Activo" : "Apagado"));
+        TelnetStream.print(" EstadoTelegram: ");
+        TelnetStream.println((EstadoImprimiendo ? "Activo" : "Apagado"));
+        TelnetStream.print(" Nivel: ");
+        TelnetStream.println(Nivel);
+        TelnetStream.print(" Rojo: ");
+        TelnetStream.println(Rojo);
+        TelnetStream.print(" Verde: ");
+        TelnetStream.println(Verde);
+        TelnetStream.print(" Azul: ");
+        TelnetStream.println(Azul);
+        TelnetStream.println();
         break;
       case 'f':
       case 'F':

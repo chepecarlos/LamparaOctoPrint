@@ -1,8 +1,10 @@
 const char* ssid_1     = "ALSW_ESTUDIO";
 const char* password_1 = "Fullpower7##";
 
+const char* token_octoprint = "903930FE1D6843AC8627CBBDB787C5B5";
+
 const char* NombreESP = "SuperAro";
-//const
+
 String Pagina =  R"====(<!DOCTYPE html>
 <html>
   <head>
