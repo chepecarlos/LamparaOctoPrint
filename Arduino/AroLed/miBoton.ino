@@ -42,8 +42,14 @@ void reImprimir() {
   int estadoAnterior = estado;
   estado = consultando;
   Serial.println("Boton ReImprimir");
-  TelnetStream.println("Boton ReImprimir -  0c");
-  consultaPost("job", "{\"command\": \"start\"}");
+  TelnetStream.println("Boton ReImprimir");
+  bool estadoImprimiendo = obtenerImprimiendo();
+  if (estadoImprimiendo) {
+    consultaPost("job", "{\"command\": \"start\"}");
+  } else {
+    Serial.println("No se puede re-imprimir");
+    TelnetStream.println("No se puede re-imprimir");
+  }
   estado = estadoAnterior;
   actualizarEstado();
 }
